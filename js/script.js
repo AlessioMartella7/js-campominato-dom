@@ -82,8 +82,6 @@ const formElement = document.querySelector('form');
 const difficultyField = document.getElementById('difficulty');
 const scoreField = document.getElementById ('score')
 
-
-
  // creo una variabile per il fine gioco
 let isGameOver = false;
 // preparo una variabile per il punteggio
@@ -117,19 +115,16 @@ formElement.addEventListener('submit', function(e){
         case 'veryhard':
             cells = 10 * 10 ;
             break;
-            
     }
 
     //creo le bombe e stampo in console
     const bombs = createRandomNumber (cells, totalBombs);
     console.log ('bombs', bombs);
 
-    
     // creo un ciclo per generare le celle della griglia e individuarne il numero
     for(let i = 0; i < cells; i++) {
         let cell = createCell(i+1);
 
-        
         // cambio la grandezza della griglia in base al valore inserito
         switch(difficulty) {
             case 'normal' :
@@ -140,12 +135,10 @@ formElement.addEventListener('submit', function(e){
                     break;
                     case 'veryhard':
                         cell.classList.add('small');
-                        
                     }
                     
                     //rimando in pagina le celle
                     gridElement.appendChild(cell);
-                    
                     
                     //aggiungo un evento alla cella
                     cell.addEventListener('click', function(){
@@ -186,8 +179,6 @@ formElement.addEventListener('submit', function(e){
                         
                         //stampo in pagina il risultato
                         scoreField.innerText = `Score: ${score}` ;
-                        
-                        
                         
                     })
                 }
