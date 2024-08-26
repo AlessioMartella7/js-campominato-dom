@@ -100,6 +100,8 @@ formElement.addEventListener('submit', function(e){
     e.preventDefault();
     //resetto la griglia
     gridElement.innerHTML = '' ;
+    //resetto il gioco
+    isGameOver = false;
 
     //prendo i valori delle options 
     const difficulty = difficultyField.value ;
@@ -144,7 +146,7 @@ formElement.addEventListener('submit', function(e){
                     //rimando in pagina le celle
                     gridElement.appendChild(cell);
                     
-                   
+                    
                     //aggiungo un evento alla cella
                     cell.addEventListener('click', function(){
                         
@@ -154,35 +156,36 @@ formElement.addEventListener('submit', function(e){
                         // incrementiamo il punteggio al click
                         score++;
                         console.log('score', score);
-                        
+                        // coloro la cella cliccata di azzurro
+                        cell.classList.add('clicked');
+
                         //punteggio massimo realizzabile
                         let maxScore = cells - totalBombs;
                         console.log('maxScore', maxScore);
+
                         //# Output Phase
 
                         //preparo un messaggio
-                        let message = `You Lose!! your final score is: ${score}`;
+                        let message = `You Win!! your final score is: ${score}`;
                         if(score === maxScore) {
-                            message = `You Win!! your final Score is: ${score}`;
-                            console.log(message);
                             isGameOver=true;
                             
-                        }
+                            //controllo se il numero della cella corrisponde ad una bomba
+                        } else if(bombs.includes(i+1)) {
 
-                        //controllo se il numero della cella corrisponde ad una bomba
-                        if(bombs.includes(i+1)) {
                             //coloro di rosso la cella
                             cell.classList.add('bomb');
                             score--;
-                            console.log(message)
+                            message = `You Lose!! your final Score is: ${score}`;
                             isGameOver=true;
+                            alert(message);
                         }
                         
                         // stampo in console il numero della cella
                         console.log(i+1);
                         
-                        // coloro la cella cliccata di azzurro
-                        cell.classList.add('clicked');
+                        //stampo in pagina il risultato
+                        scoreField.innerText = `Score: ${score}` ;
                         
                         
                         
