@@ -65,7 +65,8 @@ const createRandomNumber = (max, totalNumbers) => {
     const numbers =[];
     while(numbers.length < totalNumbers) {
         const randomNumber = Math.floor(Math.random () * max) +1 ;
-        numbers.push(randomNumber);
+        //controllo per assicurarmi che tutti i numeri inviati siano diversi
+        if(!numbers.includes(randomNumber)) numbers.push(randomNumber);
     }
 
     return numbers;
@@ -115,7 +116,7 @@ formElement.addEventListener('submit', function(e){
             break;
             
     }
-    
+
     //creo le bombe e stampo in console
     const bombs = createRandomNumber (cells, totalBombs);
     console.log ('bombs', bombs);
