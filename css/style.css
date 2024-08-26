@@ -120,3 +120,7 @@ img {
 .cell:hover {
     transform: scale(1.1);
 }
+
+.cell.clicked.bomb {
+    background-color: red;
+}

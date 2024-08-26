@@ -120,6 +120,10 @@ formElement.addEventListener('submit', function(e){
     //creo le bombe e stampo in console
     const bombs = createRandomNumber (cells, totalBombs);
     console.log ('bombs', bombs);
+
+    //punteggio massimo realizzabile
+    let maxScore = cells - totalBombs;
+    console.log('maxScore', maxScore);
         
     // creo un ciclo per generare le celle della griglia e individuarne il numero
     for(let i = 0; i < cells; i++) {
@@ -149,6 +153,13 @@ formElement.addEventListener('submit', function(e){
             
             // una volta cliccata una cella rendiamo impossibile cliccarci di nuovo
             if(cell.classList.contains('clicked')) return;
+
+            //controllo se il numero della cella corrisponde ad una bomba
+            if(bombs.includes(i+1)) {
+                //coloro di rosso la cella
+                cell.classList.add('bomb');
+                console.log('YOU DIED')
+            }
 
             // incrementiamo il punteggio al click
             score++;
