@@ -84,7 +84,8 @@ const scoreField = document.getElementById ('score')
 
 
 
-
+ // creo una variabile per il fine gioco
+let isGameOver = false;
 // preparo una variabile per il punteggio
 let score = 0;
 //bombe totali
@@ -121,57 +122,72 @@ formElement.addEventListener('submit', function(e){
     const bombs = createRandomNumber (cells, totalBombs);
     console.log ('bombs', bombs);
 
-    //punteggio massimo realizzabile
-    let maxScore = cells - totalBombs;
-    console.log('maxScore', maxScore);
-        
+    
     // creo un ciclo per generare le celle della griglia e individuarne il numero
     for(let i = 0; i < cells; i++) {
         let cell = createCell(i+1);
 
-    //# Output Phase
-
+        
         // cambio la grandezza della griglia in base al valore inserito
         switch(difficulty) {
             case 'normal' :
                 cell.classList.add('big');
                 break;
-            case 'hard' :
-                cell.classList.add('medium');
-                break;
-            case 'veryhard':
-                cell.classList.add('small');
+                case 'hard' :
+                    cell.classList.add('medium');
+                    break;
+                    case 'veryhard':
+                        cell.classList.add('small');
+                        
+                    }
+                    
+                    //rimando in pagina le celle
+                    gridElement.appendChild(cell);
+                    
+                   
+                    //aggiungo un evento alla cella
+                    cell.addEventListener('click', function(){
+                        
+                        // una volta cliccata una cella rendiamo impossibile cliccarci di nuovo
+                        if(isGameOver === true ||cell.classList.contains('clicked', 'bomb')) return;
+                        
+                        // incrementiamo il punteggio al click
+                        score++;
+                        console.log('score', score);
+                        
+                        //punteggio massimo realizzabile
+                        let maxScore = cells - totalBombs;
+                        console.log('maxScore', maxScore);
+                        //# Output Phase
+
+                        //preparo un messaggio
+                        let message = `You Lose!! your final score is: ${score}`;
+                        if(score === maxScore) {
+                            message = `You Win!! your final Score is: ${score}`;
+                            console.log(message);
+                            isGameOver=true;
+                            
+                        }
+
+                        //controllo se il numero della cella corrisponde ad una bomba
+                        if(bombs.includes(i+1)) {
+                            //coloro di rosso la cella
+                            cell.classList.add('bomb');
+                            score--;
+                            console.log(message)
+                            isGameOver=true;
+                        }
+                        
+                        // stampo in console il numero della cella
+                        console.log(i+1);
+                        
+                        // coloro la cella cliccata di azzurro
+                        cell.classList.add('clicked');
+                        
+                        
+                        
+                    })
+                }
+                
+            })
             
-        }
-
-        //rimando in pagina le celle
-        gridElement.appendChild(cell);
-       
-
-        //aggiungo un evento alla cella
-        cell.addEventListener('click', function(){
-            
-            // una volta cliccata una cella rendiamo impossibile cliccarci di nuovo
-            if(cell.classList.contains('clicked')) return;
-
-            //controllo se il numero della cella corrisponde ad una bomba
-            if(bombs.includes(i+1)) {
-                //coloro di rosso la cella
-                cell.classList.add('bomb');
-                console.log('YOU DIED')
-            }
-
-            // incrementiamo il punteggio al click
-            score++;
-            console.log('score', score);
-
-            // stampo in console il numero della cella
-            console.log(i+1);
-
-            // coloro la cella cliccata di azzurro
-            cell.classList.add('clicked');
-
-        })
-    }
-        
-})
