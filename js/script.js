@@ -29,7 +29,7 @@ Colorare tutte le celle bomba quando la partita finisce */
 // una volta cliccata una cella rendiamo impossibile cliccarci di nuovo
 
 //2:
-// creiamo un array per le bombe
+// creiamo una variabile per le bombe totali
 // creiamo una funzione per generare un numero tra 1 e il numero di celle disponibili
 // stampiamo in console
 
@@ -52,11 +52,22 @@ Colorare tutte le celle bomba quando la partita finisce */
 
 // # FUNCTIONS
 
+//funzione per generare una cella
 const createCell = content => {
 const cell = document.createElement('div');
 cell.className = 'cell';
 cell.append(content);
 return cell;
+}
+
+// funzione per generare un numero tra 1 e il numero di celle disponibili
+const createRandomNumber = max => {
+    const numbers =[];
+    const randomNumber = Math.floor(Math.random () * max) +1 ;
+    numbers.push(randomNumber);
+
+    return numbers;
+  
 }
 
 //# preparation phase
