@@ -66,8 +66,15 @@ const buttonElement = document.getElementById('play-btn');
 const gridElement = document.getElementById('grid');
 const formElement = document.querySelector('form');
 const difficultyField = document.getElementById('difficulty');
+const scoreField = document.getElementById ('score')
 
 
+
+
+// preparo una variabile per il punteggio
+let score = 0;
+//bombe totali
+const totalBombs = 16;
 
 //# Elaboration phase
 
@@ -76,11 +83,13 @@ const difficultyField = document.getElementById('difficulty');
 
 formElement.addEventListener('submit', function(e){
     e.preventDefault();
+    //resetto la griglia
+    gridElement.innerHTML = '' ;
 
     //prendo i valori delle options 
     const difficulty = difficultyField.value ;
     
-    //preparo le costanti per la grandezza delle celle
+    //preparo una variabile per la grandezza delle celle
     let cells = 7 * 7;
     
     switch(difficulty) {
@@ -116,14 +125,22 @@ formElement.addEventListener('submit', function(e){
         //rimando in pagina le celle
         gridElement.appendChild(cell);
        
+        
         //aggiungo un evento alla cella
         cell.addEventListener('click', function(){
+            
+            // una volta cliccata una cella rendiamo impossibile cliccarci di nuovo
+            if(cell.classList.contains('clicked')) return;
+
+            // incrementiamo il punteggio al click
+            score++;
+            console.log('score', score);
 
             // stampo in console il numero della cella
             console.log(i+1);
 
             // coloro la cella cliccata di azzurro
-            cell.classList.toggle('clicked');
+            cell.classList.add('clicked');
 
         })
     }
