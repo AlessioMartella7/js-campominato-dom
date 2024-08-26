@@ -61,10 +61,12 @@ return cell;
 }
 
 // funzione per generare un numero tra 1 e il numero di celle disponibili
-const createRandomNumber = max => {
+const createRandomNumber = (max, totalNumbers) => {
     const numbers =[];
-    const randomNumber = Math.floor(Math.random () * max) +1 ;
-    numbers.push(randomNumber);
+    while(numbers.length < totalNumbers) {
+        const randomNumber = Math.floor(Math.random () * max) +1 ;
+        numbers.push(randomNumber);
+    }
 
     return numbers;
   
@@ -113,6 +115,10 @@ formElement.addEventListener('submit', function(e){
             break;
             
     }
+    
+    //creo le bombe e stampo in console
+    const bombs = createRandomNumber (cells, totalBombs);
+    console.log ('bombs', bombs);
         
     // creo un ciclo per generare le celle della griglia e individuarne il numero
     for(let i = 0; i < cells; i++) {
@@ -136,7 +142,7 @@ formElement.addEventListener('submit', function(e){
         //rimando in pagina le celle
         gridElement.appendChild(cell);
        
-        
+
         //aggiungo un evento alla cella
         cell.addEventListener('click', function(){
             
